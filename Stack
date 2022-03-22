@@ -1,0 +1,67 @@
+//
+// Created by Albert Hao on 2022/3/13.
+//
+//栈，先进后出，栈顶插入删除
+#include <stdio.h>
+
+#define MaxSize 50
+typedef int ElemType;
+
+typedef struct {
+    ElemType data[MaxSize];//数组
+    int top;
+}SqStack;
+
+void InitStack(SqStack &s){//初始化栈
+    s.top = -1;
+}
+
+bool StackEmpty(SqStack s){//判断空栈,空栈返回true，否则返回false
+    if(s.top==-1){
+        return true;
+    }
+    return false;
+}
+
+bool Push(SqStack &s,ElemType x){//压栈，也称入栈
+    if(s.top == MaxSize-1){
+        return false;//栈满，无法入栈
+    }
+    s.data[++s.top] = x;
+    return true;
+}
+
+bool Pop(SqStack &s,ElemType &x){
+    if(StackEmpty(s)){
+        return false;//空栈，无法出栈
+    }
+    x = s.data[s.top--];
+    return true;
+}
+
+
+int main(){
+    SqStack s;
+    bool ret;
+    ElemType t;
+    InitStack(s);
+    ret = StackEmpty(s);
+    if(ret){
+        printf("栈为空");
+    }
+    Push(s,5);
+    Push(s,4);
+    Push(s,3);
+    Push(s,2);
+    Push(s,1);
+    ret = GetTop(s,t);//获取栈顶元素
+    if(ret){
+        printf("栈顶元素为：%d",t);
+    }
+    ret = Pop(s,t);
+    if(ret){
+        printf("弹出元素为：%d",t);
+    }
+
+    return 0;
+}
